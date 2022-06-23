@@ -1,35 +1,44 @@
 from modules.output import *
 from modules.task_list import *
 
+from modules.input import *
+
+from_user = input("Do you want to load some tasks that are already loaded? Answer Y/y\n")
+if ( from_user.lower() == 'y'):
+    from data.task_list import *
+
+
 while (True):
     print_menu()
-    option = input("Select an option 1, 2, 3, 4, 5, display (m)enu or (q)uit: ")
-    if (option.lower() == 'q'):
+    options = option()
+    if (options.lower() == 'q'):
         break
-    if option == '1':
+    if options == '1':
         print_list(tasks)
-    elif option == '2':
+    elif options == '2':
         print_list(get_uncompleted_tasks(tasks))
-    elif option == '3':
+    elif options == '3':
         print_list(get_completed_tasks(tasks))
-    elif option == '4':
-        description = input("Enter task description to search for: ")
-        task = get_task_with_description(tasks, description)
+    elif options == '4':
+        descriptions = description()
+        task = get_task_with_description(tasks, descriptions)
         if task is not None:
             mark_task_complete(task)
             print("Task marked complete")
         else:
             print("Task not found")
-    elif option == '5':
-        time = int(input("Enter task duration: "))
-        print_list(get_tasks_taking_at_least(tasks, time))
-    elif option == '6':
-        description = input("Enter task description to search for: ")
-        print(get_task_with_description(tasks, description))
-    elif option == '7':
-        description = input("Enter description: ")
-        time_taken = int(input("Enter time taken: "))
-        task = create_task(description, time_taken)
+    elif options == '5':
+        times = time()
+        print_list(get_tasks_taking_at_least(tasks, times))
+    elif options == '6':
+        descriptions = description()
+        print(get_task_with_description(tasks, descriptions))
+    elif options == '7':
+        descriptions = input("Enter description: ")
+        times = int(input("Enter time taken: "))
+        task = create_task(descriptions, times)
         tasks.append(task)
+    elif options.lower() == 'm':
+        print_menu()
     else:
         print("Invalid Input - choose another option")
