@@ -37,7 +37,7 @@ def get_tasks_taking_at_least(list, time):
 def get_task_with_description(list, description):
     for task in list:
         if task["description"] == description:
-            return task["description"]
+            return task
 
 # Extention (Function): 
 
